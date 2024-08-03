@@ -16,8 +16,7 @@
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 #include <vector>
-
-using namespace std;
+#include <string>
 
 namespace Telegram
 {
@@ -32,14 +31,15 @@ namespace Telegram
     class Telegram
     {
     public:
-        Telegram(String token);
+        explicit Telegram(String token);
         void sendMessage(String chat_id, String text);
-        vector<Message> readMessages(int timeout = 3, int limit = 100);
+        std::vector<Message> readMessages(int timeout = 3, int limit = 100);
 
     private:
         String _token;
-        String _url = "https://api.telegram.org/bot";
+        const String _url = "https://api.telegram.org/bot";
         String _sendRequest(String url);
+        int _offset = 0;
     };
 };
 
